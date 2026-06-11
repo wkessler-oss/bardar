@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Diagonal green gradient: deep emerald (top-left) -> bright lime (bottom-right) -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#0B6B31"/>
+      <stop offset="55%"  stop-color="#1FCA52"/>
+      <stop offset="100%" stop-color="#6CEB88"/>
+    </linearGradient>
+
+    <!-- Top-left depth vignette -->
+    <radialGradient id="vignette" cx="0%" cy="0%" r="85%">
+      <stop offset="0%"  stop-color="#000000" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Sweep trail: bright at the leading edge -> transparent at the trailing edge.
+         Axis runs from leading-edge midpoint (664,664) to trailing-edge midpoint (698,405). -->
+    <linearGradient id="sweepTrail" gradientUnits="userSpaceOnUse"
+                    x1="664" y1="664" x2="698" y2="405">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.72"/>
+      <stop offset="35%"  stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="75%"  stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Radial glow for the blip -->
+    <radialGradient id="blipGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="40%"  stop-color="#EFFFF2" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft glow for the trail -->
+    <filter id="trailBlur" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+    <!-- Squircle clip so the icon renders rounded-corner when viewed standalone -->
+    <clipPath id="squircle">
+      <rect width="1024" height="1024" rx="229" ry="229"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#squircle)">
+    <!-- Background -->
+    <rect width="1024" height="1024" fill="url(#bg)"/>
+    <rect width="1024" height="1024" fill="url(#vignette)"/>
+
+    <!-- Radar rings, centered on the glass -->
+    <g fill="none" stroke="#FFFFFF" stroke-opacity="0.22">
+      <circle cx="512" cy="512" r="120" stroke-width="3"/>
+      <circle cx="512" cy="512" r="220" stroke-width="3"/>
+      <circle cx="512" cy="512" r="320" stroke-width="3"/>
+      <circle cx="512" cy="512" r="430" stroke-width="3"/>
+    </g>
+
+    <!-- Sweep trail wedge: arm at +45 deg (lower-right), trail spanning 75 deg back to -30 deg -->
+    <path d="M 512 512 L 816 816 A 430 430 0 0 0 884.4 297 Z"
+          fill="url(#sweepTrail)" filter="url(#trailBlur)"/>
+
+    <!-- Bright leading edge of the sweep arm -->
+    <line x1="512" y1="512" x2="816" y2="816"
+          stroke="#FFFFFF" stroke-opacity="0.85"
+          stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Center hub -->
+    <circle cx="512" cy="512" r="9" fill="#FFFFFF" fill-opacity="0.9"/>
+
+    <!-- Live radar blip at the leading tip -->
+    <circle cx="816" cy="816" r="60" fill="url(#blipGlow)"/>
+    <circle cx="816" cy="816" r="14" fill="#FFFFFF"/>
+
+    <!-- Martini glass: white outline, thick rounded strokes -->
+    <g fill="none" stroke="#FFFFFF" stroke-width="34"
+       stroke-linecap="round" stroke-linejoin="round">
+      <!-- Rim (top horizontal) -->
+      <line x1="312" y1="320" x2="712" y2="320"/>
+      <!-- Bowl (V): left rim -> bottom of bowl -> right rim -->
+      <polyline points="312,320 512,560 712,320"/>
+      <!-- Stem -->
+      <line x1="512" y1="560" x2="512" y2="720"/>
+      <!-- Foot / base -->
+      <line x1="402" y1="720" x2="622" y2="720"/>
+    </g>
+
+    <!-- Inner edge stroke for a crisp squircle outline on any background -->
+    <rect x="3" y="3" width="1018" height="1018" rx="226" ry="226"
+          fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="6"/>
+  </g>
+</svg>
