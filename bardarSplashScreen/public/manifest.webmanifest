@@ -1,0 +1,24 @@
+{
+  "name": "bardar · Find busy bars near you",
+  "short_name": "bardar",
+  "description": "Radar for nightlife. See which bars near you are packed, chill, or have a line out the door.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1f14",
+  "theme_color": "#0b1f14",
+  "icons": [
+    {
+      "src": "/bardar-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
