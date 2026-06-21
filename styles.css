@@ -29,7 +29,7 @@
   --radius-lg: 28px;
   --maxw:      1160px;
 
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
   --font-body:    "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -179,6 +179,8 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 
 /* ---- hero ---- */
 .hero {
+  position: relative;
+  z-index: 1;
   max-width: var(--maxw);
   margin: 0 auto;
   padding-top: clamp(48px, 8vw, 96px);
@@ -214,23 +216,25 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 }
 .hero__stats span { font-size: 0.85rem; color: var(--faint); }
 
-/* ---- hero visual: WebGL shader bloom + phone ---- */
-.hero__visual { position: relative; display: grid; place-items: center; min-height: 540px; }
-
+/* ---- full-bleed WebGL shader bloom behind the whole hero ---- */
+.hero-wrap { position: relative; overflow: hidden; }
 .hero__shader {
   position: absolute;
-  inset: -8%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
 }
 .hero__shader canvas { width: 100%; height: 100%; display: block; }
 /* CSS fallback when WebGL2 is unavailable */
 .hero__shader.no-webgl {
-  background: radial-gradient(circle at 50% 45%,
-    rgba(31,202,82,0.28),
-    rgba(108,235,136,0.10) 38%,
-    transparent 70%);
+  background: radial-gradient(70% 90% at 50% 45%,
+    rgba(31,202,82,0.22),
+    rgba(108,235,136,0.08) 45%,
+    transparent 75%);
 }
+
+/* ---- hero content sits above the shader ---- */
+.hero__visual { position: relative; display: grid; place-items: center; min-height: 540px; }
 
 .phone {
   position: relative;

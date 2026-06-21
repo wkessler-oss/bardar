@@ -45,9 +45,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord){
   }
   acc = tanh(acc);
 
-  // soft circular fade so the canvas blends into the white page
-  vec2  q    = p / r.y;
-  float vign = smoothstep(0.9, 0.12, length(q));
+  // soft elliptical fade across the full section so it blends into the page
+  vec2  q    = p / (r * 0.5);
+  float vign = smoothstep(1.3, 0.15, length(q));
 
   // bardar palette
   vec3 base = vec3(0.949, 0.984, 0.961); // #F2FBF5

@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -33,7 +33,12 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero-wrap">
+      <!-- full-width animated WebGL bloom behind the whole hero -->
+      <div class="hero__shader" aria-hidden="true">
+        <canvas id="hero-shader"></canvas>
+      </div>
+      <div class="hero">
       <div class="hero__copy">
         <span class="eyebrow"><span class="pulse-dot"></span> Live nightlife radar</span>
         <h1 class="hero__title">Know where the<br /><span class="grad-text">night is happening.</span></h1>
@@ -49,12 +54,8 @@
         </ul>
       </div>
 
-      <!-- phone mockup over animated WebGL bloom -->
+      <!-- phone mockup -->
       <div class="hero__visual">
-        <div class="hero__shader" aria-hidden="true">
-          <canvas id="hero-shader"></canvas>
-        </div>
-
         <div class="phone">
           <div class="phone__notch"></div>
           <div class="phone__screen">
@@ -96,6 +97,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
