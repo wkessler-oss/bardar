@@ -75,13 +75,13 @@
     <g fill="none" stroke="#FFFFFF" stroke-width="34"
        stroke-linecap="round" stroke-linejoin="round">
       <!-- Rim (top horizontal) -->
-      <line x1="312" y1="320" x2="712" y2="320"/>
-      <!-- Bowl (V): left rim -> bottom of bowl -> right rim -->
-      <polyline points="312,320 512,560 712,320"/>
+      <line x1="312" y1="272" x2="712" y2="272"/>
+      <!-- Bowl (V): left rim -> bottom of bowl (icon center) -> right rim -->
+      <polyline points="312,272 512,512 712,272"/>
       <!-- Stem -->
-      <line x1="512" y1="560" x2="512" y2="720"/>
+      <line x1="512" y1="512" x2="512" y2="672"/>
       <!-- Foot / base -->
-      <line x1="402" y1="720" x2="622" y2="720"/>
+      <line x1="402" y1="672" x2="622" y2="672"/>
     </g>
 
     <!-- Inner edge stroke for a crisp squircle outline on any background -->
