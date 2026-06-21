@@ -214,47 +214,22 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 }
 .hero__stats span { font-size: 0.85rem; color: var(--faint); }
 
-/* ---- hero visual: green radar + phone ---- */
+/* ---- hero visual: WebGL shader bloom + phone ---- */
 .hero__visual { position: relative; display: grid; place-items: center; min-height: 540px; }
 
-.radar {
+.hero__shader {
   position: absolute;
-  width: min(440px, 96%);
-  aspect-ratio: 1;
-  border-radius: 50%;
+  inset: -8%;
   z-index: 0;
+  pointer-events: none;
 }
-.radar__rings {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle, rgba(31,202,82,0.06) 0 17%, transparent 17%),
-    radial-gradient(circle, transparent 0 18%, rgba(31,202,82,0.30) 18% 18.5%, transparent 18.5%),
-    radial-gradient(circle, transparent 0 37%, rgba(31,202,82,0.24) 37% 37.5%, transparent 37.5%),
-    radial-gradient(circle, transparent 0 60%, rgba(31,202,82,0.18) 60% 60.5%, transparent 60.5%),
-    radial-gradient(circle, transparent 0 84%, rgba(31,202,82,0.12) 84% 84.5%, transparent 84.5%);
-}
-.radar__sweep {
-  position: absolute; inset: 0; border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(31,202,82,0.55), rgba(31,202,82,0.10) 40deg, transparent 90deg);
-  mask: radial-gradient(circle, transparent 12%, black 12.5%);
-  -webkit-mask: radial-gradient(circle, transparent 12%, black 12.5%);
-  animation: sweep 4.5s linear infinite;
-}
-@keyframes sweep { to { transform: rotate(360deg); } }
-.radar__blip {
-  position: absolute;
-  left: var(--x); top: var(--y);
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--green-2);
-  box-shadow: 0 0 12px 2px var(--glow);
-  animation: blip 4.5s ease-out infinite;
-  animation-delay: var(--d);
-}
-@keyframes blip {
-  0%, 60% { transform: scale(0); opacity: 0; }
-  70%     { transform: scale(1.4); opacity: 1; }
-  100%    { transform: scale(1); opacity: 0; }
+.hero__shader canvas { width: 100%; height: 100%; display: block; }
+/* CSS fallback when WebGL2 is unavailable */
+.hero__shader.no-webgl {
+  background: radial-gradient(circle at 50% 45%,
+    rgba(31,202,82,0.28),
+    rgba(108,235,136,0.10) 38%,
+    transparent 70%);
 }
 
 .phone {
@@ -484,6 +459,6 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .radar__sweep, .radar__blip, .pulse-dot { animation: none; }
+  .pulse-dot { animation: none; }
   html { scroll-behavior: auto; }
 }
