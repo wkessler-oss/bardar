@@ -1,6 +1,8 @@
-// bardar hero — WebGL2 smoke shader (vanilla port).
-// fbm smoke remapped to the site palette: green wisps on a near-white base,
-// with a soft vertical fade so it melts into the adjacent white sections.
+// bardar hero — WebGL2 "futuristic" grid (vanilla, self-contained).
+// Animated perspective tron-grid tunnel + sweeping scan line + horizon glow,
+// recolored to the site palette: green lines on a near-white base, with a
+// clear center band so the hero text stays readable and a soft vertical fade
+// so it melts into the adjacent white sections.
 (() => {
   const wrap = document.querySelector('.hero__shader');
   const canvas = document.getElementById('hero-shader');
@@ -13,8 +15,8 @@
     return;
   }
 
-  // brand green (#1FCA52) used to tint the smoke
-  const SMOKE_COLOR = [0.122, 0.792, 0.322];
+  // brand green (#1FCA52) used for the grid lines
+  const GRID_COLOR = [0.122, 0.792, 0.322];
 
   const VERT_SRC = `#version 300 es
 precision highp float;
@@ -29,43 +31,46 @@ uniform float time;
 uniform vec2  resolution;
 uniform vec3  u_color;
 
-#define FC gl_FragCoord.xy
-#define R resolution
-#define T (time+660.)
-
-float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
-float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}
-float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}
-
 void main(){
-  vec2 uv=(FC-.5*R)/R.y;
-  vec3 col=vec3(1);
-  uv.x+=.25;
-  uv*=vec2(2,1);
+  vec2 R = resolution;
+  vec2 p = (2.0 * gl_FragCoord.xy - R) / R.y;   // aspect-correct, ~ -1..1 vertically
 
-  float n=fbm(uv*.28-vec2(T*.01,0));
-  n=noise(uv*3.+n*2.);
+  // perspective tron grid, mirrored top + bottom into a tunnel
+  float ay    = abs(p.y) + 0.0015;
+  float depth = 1.0 / ay;
+  vec2  g     = vec2(p.x * depth, depth - time * 1.3);
+  vec2  f     = abs(fract(g) - 0.5);
+  float l     = min(f.x, f.y);
+  float w     = fwidth(l) * 1.5 + 0.003;
+  float grid  = smoothstep(w, 0.0, l);
 
-  col.r-=fbm(uv+vec2(0,T*.015)+n);
-  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);
-  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);
+  // clear the center band (keeps text readable) and fade far lines
+  grid *= smoothstep(0.02, 0.5, ay);
+  grid *= clamp(exp(-depth * 0.05), 0.0, 1.0);
 
-  // smoke density from the grayscale field (0 = clear, 1 = dense)
-  float lum = dot(clamp(col,0.0,1.0), vec3(.21,.71,.07));
-  float density = clamp(1.0 - lum, 0.0, 1.0);
+  // sweeping horizontal scan line
+  float scanPos = mix(-1.05, 1.05, fract(time * 0.07));
+  float scan    = smoothstep(0.07, 0.0, abs(p.y - scanPos));
 
-  // light theme: near-white page tinted toward green where smoke is dense
-  vec3 page = vec3(0.972, 0.992, 0.980);
-  vec3 outc = mix(page, u_color, density * 0.70);
+  // soft glow along the horizon
+  float glow = exp(-abs(p.y) * 3.5);
+
+  vec3 page  = vec3(0.972, 0.992, 0.980);
+  vec3 green = u_color;
+
+  vec3 col = page;
+  col = mix(col, green, grid * 0.85);
+  col = mix(col, green, scan * 0.18);
+  col = mix(col, mix(green, vec3(1.0), 0.45), glow * 0.20);
 
   // fade in on load
-  outc = mix(page, outc, min(time*.25, 1.0));
+  col = mix(page, col, min(time * 0.4, 1.0));
 
   // soft vertical fade so the canvas blends into the white sections
-  float y = FC.y / R.y;
+  float y = gl_FragCoord.y / R.y;
   float vfade = smoothstep(0.0, 0.10, y) * smoothstep(1.0, 0.85, y);
 
-  O = vec4(outc, vfade);
+  O = vec4(col, vfade);
 }
 `;
 
@@ -112,7 +117,7 @@ void main(){
   const uColor = gl.getUniformLocation(prog, 'u_color');
 
   gl.useProgram(prog);
-  gl.uniform3fv(uColor, SMOKE_COLOR);
+  gl.uniform3fv(uColor, GRID_COLOR);
   gl.clearColor(0, 0, 0, 0);
 
   const dpr = () => Math.max(1, Math.min(2, window.devicePixelRatio || 1));
