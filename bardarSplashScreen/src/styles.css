@@ -1,0 +1,166 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 1rem;
+  /* Bardar — radar nightlife theme (dark by default) */
+  --background: oklch(0.16 0.03 155);
+  --foreground: oklch(0.97 0.02 150);
+  --card: oklch(0.21 0.04 155);
+  --card-foreground: oklch(0.97 0.02 150);
+  --popover: oklch(0.21 0.04 155);
+  --popover-foreground: oklch(0.97 0.02 150);
+  --primary: oklch(0.78 0.22 148);
+  --primary-foreground: oklch(0.14 0.04 155);
+  --primary-glow: oklch(0.88 0.26 148);
+  --secondary: oklch(0.26 0.05 155);
+  --secondary-foreground: oklch(0.95 0.02 150);
+  --muted: oklch(0.24 0.04 155);
+  --muted-foreground: oklch(0.68 0.06 150);
+  --accent: oklch(0.78 0.22 148);
+  --accent-foreground: oklch(0.14 0.04 155);
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  --warning: oklch(0.82 0.18 75);
+  --warning-foreground: oklch(0.18 0.04 75);
+  --success: oklch(0.78 0.22 148);
+  --success-foreground: oklch(0.14 0.04 155);
+  --border: oklch(0.32 0.05 155 / 60%);
+  --input: oklch(0.28 0.05 155);
+  --ring: oklch(0.78 0.22 148);
+  --chart-1: oklch(0.78 0.22 148);
+  --chart-2: oklch(0.82 0.18 75);
+  --chart-3: oklch(0.65 0.24 25);
+  --chart-4: oklch(0.7 0.18 200);
+  --chart-5: oklch(0.6 0.2 300);
+  --sidebar: oklch(0.18 0.03 155);
+  --sidebar-foreground: oklch(0.95 0.02 150);
+  --sidebar-primary: oklch(0.78 0.22 148);
+  --sidebar-primary-foreground: oklch(0.14 0.04 155);
+  --sidebar-accent: oklch(0.26 0.05 155);
+  --sidebar-accent-foreground: oklch(0.95 0.02 150);
+  --sidebar-border: oklch(0.32 0.05 155 / 60%);
+  --sidebar-ring: oklch(0.78 0.22 148);
+
+  /* Bardar custom tokens */
+  --radar-deep: oklch(0.22 0.08 150);
+  --radar-mid: oklch(0.45 0.18 148);
+  --gradient-radar: radial-gradient(circle at 50% 50%, oklch(0.45 0.18 148) 0%, oklch(0.22 0.08 150) 55%, oklch(0.14 0.04 155) 100%);
+  --gradient-primary: linear-gradient(135deg, oklch(0.78 0.22 148), oklch(0.88 0.26 148));
+  --shadow-glow: 0 0 32px -4px oklch(0.78 0.22 148 / 45%);
+  --shadow-card: 0 8px 32px -12px oklch(0 0 0 / 60%);
+}
+
+.dark {
+  /* dark === root for Bardar */
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Aptos", "Aptos Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  html, body, #root {
+    min-height: 100vh;
+  }
+}
+
+@theme inline {
+  --color-primary-glow: var(--primary-glow);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+}
+
+/* Radar sweep animation */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes radar-pulse {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 16px -2px oklch(0.78 0.22 148 / 50%); }
+  50% { box-shadow: 0 0 32px 4px oklch(0.78 0.22 148 / 70%); }
+}
+
+.radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+}
+.radar-ping {
+  animation: radar-pulse 2.4s ease-out infinite;
+}
+.pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
