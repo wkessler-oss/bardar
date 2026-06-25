@@ -1,4 +1,4 @@
-// bardar landing — subtle scroll reveals + meter fill on view
+// bardar landing, subtle scroll reveals + meter fill on view
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

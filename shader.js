@@ -1,4 +1,4 @@
-// bardar hero — WebGL2 "futuristic" grid (vanilla, self-contained).
+// bardar hero, WebGL2 "futuristic" grid (vanilla, self-contained).
 // Animated perspective tron-grid tunnel + sweeping scan line + horizon glow,
 // recolored to the site palette: green lines on a near-white base, with a
 // clear center band so the hero text stays readable and a soft vertical fade
@@ -66,9 +66,9 @@ void main(){
   // fade in on load
   col = mix(page, col, min(time * 0.4, 1.0));
 
-  // soft vertical fade so the canvas blends into the white sections
+  // fill to the top; only a small fade at the very bottom to blend into the next section
   float y = gl_FragCoord.y / R.y;
-  float vfade = smoothstep(0.0, 0.10, y) * smoothstep(1.0, 0.85, y);
+  float vfade = smoothstep(0.0, 0.06, y);
 
   O = vec4(col, vfade);
 }
