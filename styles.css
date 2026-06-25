@@ -217,18 +217,23 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
   position: relative;
   display: block;
   overflow: hidden;
-  line-height: 1.18;
-  padding-block: 0.04em;
+  line-height: 1.2;
+  padding-block: 0.06em;
 }
+/* invisible spacer reserves the line height; words overlay it absolutely */
+.rotator__sizer { visibility: hidden; }
 .rotator__word {
   position: absolute;
   left: 0; right: 0;
   text-align: center;
   white-space: nowrap;
+  transform: translateY(115%);          /* default: waiting below */
   opacity: 0;
+  transition: transform .7s cubic-bezier(.22, 1, .36, 1), opacity .55s ease;
 }
-/* first word defines the line height and shows by default (no-JS fallback) */
-.rotator__word:first-child { position: relative; opacity: 1; }
+.rotator__word.is-active { transform: translateY(0); opacity: 1; }
+.rotator__word.is-up     { transform: translateY(-115%); opacity: 0; }
+.rotator__word.no-transition { transition: none; }
 
 .sr-only {
   position: absolute;
