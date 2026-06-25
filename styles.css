@@ -210,6 +210,35 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
   font-weight: 800;
   margin: 22px 0 18px;
 }
+.hero__static { display: block; }
+
+/* rotating word (animated-hero style) */
+.rotator {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  line-height: 1.18;
+  padding-block: 0.04em;
+}
+.rotator__word {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+}
+/* first word defines the line height and shows by default (no-JS fallback) */
+.rotator__word:first-child { position: relative; opacity: 1; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .hero__sub {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   color: var(--muted);

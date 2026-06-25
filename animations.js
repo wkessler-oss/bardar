@@ -19,6 +19,26 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     });
   }
 
+  // --- Rotating headline word (animated-hero style) ---
+  const rotator = document.querySelector('.rotator');
+  if (rotator) {
+    const words = [...rotator.querySelectorAll('.rotator__word')];
+    if (words.length > 1) {
+      words.forEach((w, i) => {
+        w.style.willChange = 'transform, opacity';
+        if (i !== 0) { w.style.opacity = '0'; w.style.transform = 'translateY(110%)'; }
+      });
+      let idx = 0;
+      setInterval(() => {
+        const out = words[idx];
+        idx = (idx + 1) % words.length;
+        const incoming = words[idx];
+        animate(out, { translateY: ['0%', '-110%'], opacity: [1, 0], duration: 700, ease: 'inOutQuad' });
+        animate(incoming, { translateY: ['110%', '0%'], opacity: [0, 1], duration: 800, ease: 'outExpo' });
+      }, 2200);
+    }
+  }
+
   // --- Live crowd meters fill + percentages count up when in view ---
   const liveSection = document.querySelector('#livenow');
   if (liveSection) {
