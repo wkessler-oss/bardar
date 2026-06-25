@@ -66,9 +66,9 @@ void main(){
   // fade in on load
   col = mix(page, col, min(time * 0.4, 1.0));
 
-  // fill to the top; only a small fade at the very bottom to blend into the next section
+  // soft vertical fade so the canvas blends into the white sections
   float y = gl_FragCoord.y / R.y;
-  float vfade = smoothstep(0.0, 0.06, y);
+  float vfade = smoothstep(0.0, 0.10, y) * smoothstep(1.0, 0.85, y);
 
   O = vec4(col, vfade);
 }
