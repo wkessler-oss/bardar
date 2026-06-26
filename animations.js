@@ -13,7 +13,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     animate(heroEls, {
       opacity: [0, 1],
       y: [22, 0],
-      duration: 760,
+      duration: 1000,
       delay: stagger(90, { start: 120 }),
       ease: 'outExpo',
     });
