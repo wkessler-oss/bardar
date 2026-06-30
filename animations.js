@@ -18,46 +18,4 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       ease: 'outExpo',
     });
   }
-
-  // --- Live crowd meters fill + percentages count up when in view ---
-  const liveSection = document.querySelector('#livenow');
-  if (liveSection) {
-    const meters = document.querySelectorAll('.live-card__meter span');
-    meters.forEach((m) => {
-      m.style.transformOrigin = 'left';
-      m.style.transform = 'scaleX(0)';
-    });
-
-    const counters = [...document.querySelectorAll('.live-card footer span:first-child')];
-    const targets = counters.map((c) => parseInt(c.textContent, 10) || 0);
-
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        obs.disconnect();
-
-        // bars sweep up to their live crowd level
-        animate(meters, {
-          scaleX: [0, 1],
-          duration: 1100,
-          delay: stagger(130),
-          ease: 'outExpo',
-        });
-
-        // percentages tick up from 0
-        counters.forEach((c, i) => {
-          const o = { v: 0 };
-          animate(o, {
-            v: targets[i],
-            duration: 1100,
-            delay: i * 130,
-            ease: 'outExpo',
-            onUpdate: () => { c.textContent = Math.round(o.v) + '% full'; },
-          });
-        });
-      });
-    }, { threshold: 0.3 });
-
-    io.observe(liveSection);
-  }
 }

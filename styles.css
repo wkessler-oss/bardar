@@ -368,32 +368,6 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
 .card p { color: var(--muted); font-size: 0.96rem; }
 
-/* ---- live now ---- */
-.live-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.live-card {
-  padding: 22px 20px;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-.live-card header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
-.live-card__name { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; }
-.live-card__badge {
-  font-size: 0.7rem; font-weight: 600;
-  padding: 4px 9px; border-radius: 99px;
-  white-space: nowrap;
-}
-.live-card__meter { height: 7px; border-radius: 99px; background: rgba(11,107,49,0.10); overflow: hidden; margin-bottom: 14px; }
-.live-card__meter span { display: block; height: 100%; border-radius: 99px; width: var(--lvl); }
-.live-card footer { display: flex; flex-direction: column; gap: 3px; font-size: 0.82rem; color: var(--faint); }
-.live-card footer span:first-child { color: var(--text); font-weight: 600; }
-.live-card--hot  .live-card__meter span { background: var(--hot); }
-.live-card--hot  .live-card__badge { background: rgba(22,163,74,0.14); color: var(--hot); }
-.live-card--warm .live-card__meter span { background: var(--warm); }
-.live-card--warm .live-card__badge { background: rgba(214,154,12,0.16); color: var(--warm); }
-.live-card--cool .live-card__meter span { background: var(--cool); }
-.live-card--cool .live-card__badge { background: rgba(37,99,235,0.14); color: var(--cool); }
-
 /* ---- FAQ ---- */
 .faq { display: grid; gap: 12px; max-width: 820px; }
 .faq__item {
@@ -509,11 +483,10 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 /* ---- responsive ---- */
 @media (max-width: 880px) {
   .nav__links { display: none; }
-  .steps, .cards, .live-grid { grid-template-columns: 1fr; }
+  .steps, .cards { grid-template-columns: 1fr; }
 }
 @media (min-width: 881px) and (max-width: 1040px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
-  .live-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {

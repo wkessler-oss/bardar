@@ -65,7 +65,7 @@
 
   // Reveal sections as they scroll into view
   const revealables = document.querySelectorAll(
-    '.section, .strip, .cta, .step, .card, .live-card'
+    '.section, .strip, .cta, .step, .card'
   );
   revealables.forEach((el) => {
     el.style.opacity = '0';
