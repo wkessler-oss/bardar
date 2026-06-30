@@ -136,7 +136,8 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 .btn--primary {
   color: #04230F;
   background: linear-gradient(180deg, var(--green-3), var(--green-2));
-  box-shadow: 0 10px 28px -10px var(--glow), inset 0 1px 0 rgba(255,255,255,0.4);
+  border-color: var(--green-2);
+  box-shadow: 0 10px 28px -10px var(--glow), inset 0 1px 0 rgba(255,255,255,0.45);
 }
 .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 16px 38px -12px var(--glow); }
 .btn--ghost {
@@ -261,8 +262,9 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
   gap: clamp(24px, 4vw, 48px);
   list-style: none;
   justify-content: center;
+  flex-wrap: wrap;
 }
-.hero__stats li { display: flex; flex-direction: column; }
+.hero__stats li { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero__stats strong {
   font-family: var(--font-display);
   font-size: 1.7rem;
@@ -465,6 +467,13 @@ section { padding-inline: clamp(20px, 5vw, 48px); }
 .cta__input::placeholder { color: var(--faint); }
 .cta__input:focus { outline: none; border-color: var(--border-2); box-shadow: 0 0 0 4px rgba(31,202,82,0.14); }
 .cta__notify .btn { flex: 0 0 auto; }
+.cta__notice {
+  margin: 0 auto 26px;
+  max-width: 460px;
+  font-weight: 600;
+  color: var(--green-ink);
+}
+.cta__notice[hidden] { display: none; }
 
 .cta__buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .badge--soon { opacity: 0.55; filter: grayscale(0.2); cursor: default; }

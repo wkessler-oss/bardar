@@ -28,6 +28,41 @@
     }
   }
 
+  // Brand (logo + name) always scrolls to the very top of the page
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+
+  // Email notify form: capture the address and confirm (no backend yet)
+  const notifyForm = document.querySelector('.cta__notify');
+  if (notifyForm) {
+    notifyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = notifyForm.querySelector('.cta__input');
+      const ok = input && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      if (!ok) {
+        input?.focus();
+        input?.setCustomValidity?.('Please enter a valid email');
+        input?.reportValidity?.();
+        return;
+      }
+      const msg = document.getElementById('notify-msg');
+      if (msg) {
+        msg.textContent = "You're on the list. We'll email you the moment bardar launches.";
+        msg.hidden = false;
+      }
+      notifyForm.hidden = true;
+    });
+    // clear the custom error as the user edits
+    notifyForm.querySelector('.cta__input')?.addEventListener('input', (e) => {
+      e.target.setCustomValidity('');
+    });
+  }
+
   // Reveal sections as they scroll into view
   const revealables = document.querySelectorAll(
     '.section, .strip, .cta, .step, .card, .live-card'

@@ -214,19 +214,17 @@
         <img src="favicon.svg" alt="" width="72" height="72" class="cta__mark" />
         <h2>Be there on night one.</h2>
         <p>bardar launches <strong>October 1, 2026</strong> on iOS and Android. Get notified and walk into the right room from day one, free to download.</p>
-        <form class="cta__notify" onsubmit="return false;">
+        <form class="cta__notify" novalidate>
           <input type="email" class="cta__input" placeholder="you@email.com" aria-label="Email address" required />
           <button type="submit" class="btn btn--primary">Notify me</button>
         </form>
+        <p class="cta__notice" id="notify-msg" role="status" hidden></p>
         <div class="cta__buttons">
           <a href="#" class="badge badge--soon" aria-label="Coming soon to the App Store">
             <img src="appstore-badge.svg" alt="Coming soon to the App Store" width="162" height="48" />
           </a>
-          <a href="#" class="badge badge--soon" aria-label="Coming soon to Google Play">
-            <img src="googleplay-badge.svg" alt="Coming soon to Google Play" width="178" height="48" />
-          </a>
         </div>
-        <p class="cta__soon">Store links go live October 1, 2026</p>
+        <p class="cta__soon">App Store link goes live October 1, 2026</p>
       </div>
     </section>
   </main>
